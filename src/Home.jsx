@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import fetchData from "./services/PodcastService";
 import { hasOneDAyPassed, normalizeData } from "./utils";
 import Header from "./components/header";
+import InputSearch from "./components/inputSearch";
 
 const Home = () => {
   const [podcasts, setPodcasts] = useState([]);
@@ -42,12 +43,7 @@ const Home = () => {
         <span className="input__container--counter">
           {filteredPodcasts.length}
         </span>
-        <input
-          className="input__container--input"
-          type="text"
-          placeholder="Filter podcasts..."
-          onChange={handleInputChange}
-        ></input>
+        <InputSearch onChange={handleInputChange} />
       </div>
 
       <ul className="podcasts__container">

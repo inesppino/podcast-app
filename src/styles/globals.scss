@@ -1,8 +1,9 @@
 @import "tokens.scss";
 @import "../Home.scss";
 @import "../components/header";
+@import "../components/inputSearch/";
 
-:root {
+:root  {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.1;
   font-weight: 500;

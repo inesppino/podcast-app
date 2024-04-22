@@ -6,16 +6,6 @@
   padding: 1rem;
   gap: 0.5rem;
 
-  &--input {
-    background-color: $color-primary-light;
-    color: $color-primary-dark;
-    min-width: 250px;
-    font-size: 0.75rem;
-    padding: 0.5rem;
-    border: 1px solid rgba($color-secondary-dark, 0.3);
-    border-radius: 5px;
-  }
-
   &--counter {
     background-color: $color-secondary;
     color: $color-primary-light;
