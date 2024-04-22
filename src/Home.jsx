@@ -5,6 +5,7 @@ import Header from "./components/header";
 
 const Home = () => {
   const [podcasts, setPodcasts] = useState([]);
+  const [filteredPodcasts, setFilteredPodcasts] = useState([]);
 
   useEffect(() => {
     if (
@@ -16,19 +17,41 @@ const Home = () => {
         localStorage.setItem("podcasts_lastUpdated", new Date().toISOString());
         localStorage.setItem("podcasts", JSON.stringify(normalizedPodcasts));
         setPodcasts(normalizedPodcasts);
+        setFilteredPodcasts(normalizedPodcasts);
       });
     } else {
       const data = JSON.parse(localStorage.getItem("podcasts"));
       setPodcasts(data);
+      setFilteredPodcasts(data);
     }
   }, []);
+
+  const handleInputChange = (e) => {
+    const searchValue = e.target.value.toLowerCase();
+    const filteredPodcasts = podcasts.filter((podcast) =>
+      podcast.name.toLowerCase().includes(searchValue)
+    );
+    setFilteredPodcasts(filteredPodcasts);
+  };
 
   return (
     <>
       <Header />
 
+      <div className="input__container">
+        <span className="input__container--counter">
+          {filteredPodcasts.length}
+        </span>
+        <input
+          className="input__container--input"
+          type="text"
+          placeholder="Filter podcasts..."
+          onChange={handleInputChange}
+        ></input>
+      </div>
+
       <ul className="podcasts__container">
-        {podcasts.map((podcast) => (
+        {filteredPodcasts.map((podcast) => (
           <li key={podcast.id}>
             <div className="podcast__card">
               <img
