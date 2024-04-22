@@ -29,8 +29,10 @@ const Home = () => {
 
   const handleInputChange = (e) => {
     const searchValue = e.target.value.toLowerCase();
-    const filteredPodcasts = podcasts.filter((podcast) =>
-      podcast.name.toLowerCase().includes(searchValue)
+    const filteredPodcasts = podcasts.filter(
+      (podcast) =>
+        podcast.name.toLowerCase().includes(searchValue) ||
+        podcast.artist.toLowerCase().includes(searchValue)
     );
     setFilteredPodcasts(filteredPodcasts);
   };
