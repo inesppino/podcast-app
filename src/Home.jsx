@@ -1,37 +1,15 @@
 import { useEffect, useState } from "react";
-// import "./App.scss";
+import fetchData from "./services/PodcastService";
+import { hasOneDAyPassed, normalizeData } from "./utils";
 
 const Home = () => {
   const [podcasts, setPodcasts] = useState([]);
 
-  const normalizeData = (data) => {
-    return data.map((podcast) => {
-      return {
-        id: podcast.id.attributes["im:id"],
-        name: podcast["im:name"].label,
-        image: podcast["im:image"][2].label,
-        artist: podcast["im:artist"].label,
-        title: podcast.title.label,
-      };
-    });
-  };
-
-  const fetchData = async () => {
-    const url =
-      "https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json";
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-  };
-
-  const hasOneDAyPassed = () => {
-    const oneDay = 1000 * 60 * 60 * 24;
-    const lastUpdated = new Date(localStorage.getItem("podcasts_lastUpdated"));
-    return new Date() - lastUpdated > oneDay;
-  };
-
   useEffect(() => {
-    if (localStorage.getItem("podcasts_lastUpdated") && hasOneDAyPassed()) {
+    if (
+      localStorage.getItem("podcasts_lastUpdated") &&
+      hasOneDAyPassed(localStorage.getItem("podcasts_lastUpdated"))
+    ) {
       fetchData().then((data) => {
         const normalizedPodcasts = normalizeData(data.feed.entry);
         localStorage.setItem("podcasts_lastUpdated", new Date().toISOString());
