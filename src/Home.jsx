@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import fetchData from "./services/PodcastService";
 import { hasOneDAyPassed, normalizeData } from "./utils";
+import Header from "./components/header";
 
 const Home = () => {
   const [podcasts, setPodcasts] = useState([]);
@@ -24,11 +25,7 @@ const Home = () => {
 
   return (
     <>
-      <header className="header__container">
-        <a href="/">
-          <h1>Podcaster</h1>
-        </a>
-      </header>
+      <Header />
 
       <ul className="podcasts__container">
         {podcasts.map((podcast) => (
