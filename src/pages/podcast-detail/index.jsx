@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getPodcastById } from "../../services/PodcastService";
 import { hasOneDAyPassed, normalizePodcastDetail } from "../../utils";
+import Summary from "../../components/summary";
 
 const Podcast = () => {
   const { podcastId } = useParams();
@@ -41,26 +42,12 @@ const Podcast = () => {
 
   return (
     <div className="detail__container">
-      <div className="detail__summary">
-        <div className="detail__summary--image">
-          <img src={podcastInfo.image} alt={`${podcastInfo.name} logo`} />
-        </div>
-        <div className="detail__summary--info">
-          <p className="detail__summary--info-title">{podcastInfo.name}</p>
-          <p className="detail__summary--info-author">
-            by: {podcastInfo.author}
-          </p>
-        </div>
-        <div className="detail__summary--description">
-          <p className="detail__summary--description-title">Description:</p>
-          <p
-            className="detail__summary--description-text"
-            dangerouslySetInnerHTML={{
-              __html: podcastInfo?.description,
-            }}
-          ></p>
-        </div>
-      </div>
+      <Summary
+        image={podcastInfo.image}
+        name={podcastInfo.name}
+        author={podcastInfo.author}
+        description={podcastInfo.description}
+      />
 
       <div className="detail-episodes__container">
         <p className="detail-episodes__number">
