@@ -45,6 +45,10 @@ export const normalizePodcastDetail = (data) => {
   };
 };
 
+export const getEpisodeById = (episodes, episodeId) => {
+  return episodes.find((episode) => episode.id === episodeId);
+};
+
 export const normalizeEpisodes = (episodes) => {
   const formattedEpisodes = {
     description: "",

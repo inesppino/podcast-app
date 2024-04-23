@@ -1,11 +1,12 @@
 @import "tokens.scss";
-@import "../pages/home/";
 @import "../components/header";
 @import "../components/layout";
 @import "../components/input-search/";
 @import "../components/card/";
 @import "../components/summary/";
+@import "../pages/home/";
 @import "../pages/podcast-detail/";
+@import "../pages/episode/";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
