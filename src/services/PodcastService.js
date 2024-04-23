@@ -37,9 +37,14 @@ export const getPodcastById = async (podcastId) => {
 
 const getPodcastFeed = async (feed) => {
   const allowOriginsUrl = `${ORIGINS_URL}${feed}`;
-
   const res = await fetch(allowOriginsUrl)
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Network response was not ok");
+      }
+    })
     .then((str) => {
       const parsedData = new window.DOMParser().parseFromString(
         str.contents,
@@ -53,6 +58,9 @@ const getPodcastFeed = async (feed) => {
       }
       const formattedEpisodes = normalizeEpisodes(data);
       return formattedEpisodes;
+    })
+    .catch((err) => {
+      console.error(err);
     });
   return res;
 };
