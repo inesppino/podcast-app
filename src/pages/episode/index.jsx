@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { startLoading, stopLoading } from "../../store/global/globalActions";
 import { getPodcastById } from "../../services/PodcastService";
 import {
   getEpisodeById,
@@ -9,6 +11,7 @@ import {
 import Summary from "../../components/summary";
 
 const Episode = () => {
+  const dispatch = useDispatch();
   const { podcastId, episodeId } = useParams();
   const [podcastInfo, setPodcastInfo] = useState(undefined);
   const [error, setError] = useState(null);
@@ -18,6 +21,7 @@ const Episode = () => {
     const localStorageDate = localStorage.getItem(`date_${podcastId}`);
 
     if (!localStorageDate || hasOneDAyPassed(localStorageDate)) {
+      dispatch(startLoading());
       getPodcastById(podcastId)
         .then((data) => {
           const normalizedData = normalizePodcastDetail(data.podcastInfo);
@@ -35,6 +39,7 @@ const Episode = () => {
             new Date().toISOString()
           );
           setPodcastInfo(normalizedData);
+          dispatch(stopLoading());
         })
         .catch((err) => {
           console.error(err);

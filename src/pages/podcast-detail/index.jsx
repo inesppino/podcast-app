@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { getPodcastById } from "../../services/PodcastService";
+import { startLoading, stopLoading } from "../../store/global/globalActions";
 import { hasOneDAyPassed, normalizePodcastDetail } from "../../utils";
 import Summary from "../../components/summary";
 
 const Podcast = () => {
+  const dispatch = useDispatch();
   const { podcastId } = useParams();
   const [podcastInfo, setPodcastInfo] = useState(undefined);
   const [error, setError] = useState(null);
@@ -13,6 +16,7 @@ const Podcast = () => {
     const localStorageData = localStorage.getItem(podcastId);
     const localStorageDate = localStorage.getItem(`date_${podcastId}`);
     if (!localStorageDate || hasOneDAyPassed(localStorageDate)) {
+      dispatch(startLoading());
       getPodcastById(podcastId)
         .then((data) => {
           const normalizedData = normalizePodcastDetail(data.podcastInfo);
@@ -25,6 +29,7 @@ const Podcast = () => {
             new Date().toISOString()
           );
           setPodcastInfo(normalizedData);
+          dispatch(stopLoading());
         })
         .catch((err) => {
           console.error(err);
@@ -34,11 +39,12 @@ const Podcast = () => {
       const data = JSON.parse(localStorageData);
       setPodcastInfo(data);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [podcastId]);
 
   if (error) return <h1>Something went wrong</h1>;
-
-  if (podcastInfo === undefined) return <h1>Loading...</h1>;
+  console.log(podcastInfo);
+  if (podcastInfo === undefined) return <div></div>;
 
   return (
     <div className="detail__container">
