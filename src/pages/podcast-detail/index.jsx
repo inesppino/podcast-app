@@ -47,6 +47,7 @@ const Podcast = () => {
         name={podcastInfo.name}
         author={podcastInfo.author}
         description={podcastInfo.description}
+        id={podcastId}
       />
 
       <div className="detail-episodes__container">
@@ -66,9 +67,11 @@ const Podcast = () => {
             {podcastInfo.episodes?.map((episode, index) => (
               <tr key={index} className="detail-episodes__table-row">
                 <td className="detail-episodes__table-cell">
-                  <span className="detail-episodes__table-title">
-                    {episode.title}
-                  </span>
+                  <Link to={`./episode/${episode.id}`}>
+                    <span className="detail-episodes__table-title">
+                      {episode.title}
+                    </span>
+                  </Link>
                 </td>
                 <td className="detail-episodes__table-cell">
                   {new Date(episode.date).toLocaleDateString("es")}
