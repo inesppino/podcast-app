@@ -16,6 +16,7 @@ const Episode = () => {
   useEffect(() => {
     const localStorageData = localStorage.getItem(podcastId);
     const localStorageDate = localStorage.getItem(`date_${podcastId}`);
+
     if (!localStorageDate || hasOneDAyPassed(localStorageDate)) {
       getPodcastById(podcastId)
         .then((data) => {
@@ -41,6 +42,8 @@ const Episode = () => {
         });
     } else {
       const data = JSON.parse(localStorageData);
+      data.selectedEpisode =
+        data.selectedEpisode ?? getEpisodeById(data.episodes, episodeId);
       setPodcastInfo(data);
     }
   }, [podcastId, episodeId]);
