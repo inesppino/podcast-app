@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import fetchData from "../../services/PodcastService";
 import { hasOneDAyPassed, normalizeData } from "../../utils";
 import InputSearch from "../../components/input-search";
+import Card from "../../components/card";
 
 const Home = () => {
   const [podcasts, setPodcasts] = useState([]);
@@ -50,17 +51,12 @@ const Home = () => {
         {filteredPodcasts.map((podcast) => (
           <li key={podcast.id}>
             <Link to={`podcast/${podcast.id}`}>
-              <div className="podcast__card">
-                <img
-                  className="podcast__card--image"
-                  src={podcast.image}
-                  alt={`${podcast.title} logo`}
-                />
-                <h4 className="podcast__card--title">{podcast.name}</h4>
-                <p className="podcast__card--author">
-                  Author: {podcast.artist}{" "}
-                </p>
-              </div>
+              <Card
+                image={podcast.image}
+                title={podcast.title}
+                name={podcast.name}
+                author={podcast.artist}
+              />
             </Link>
           </li>
         ))}
