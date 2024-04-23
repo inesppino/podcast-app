@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Home from "./Home.jsx";
+import Home from "./pages/home/Home.jsx";
 import "./styles/globals.scss";
-import Podcast from "./Podcast.jsx";
+import Podcast from "./pages/podcast-detail/Podcast.jsx";
+import Layout from "./components/layout/index.jsx";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Layout>
+      <RouterProvider router={router} />
+    </Layout>
   </React.StrictMode>
 );

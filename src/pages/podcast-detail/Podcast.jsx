@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getPodcastById } from "./services/PodcastService";
-import { hasOneDAyPassed, normalizePodcastDetail } from "./utils";
+import { getPodcastById } from "../../services/PodcastService";
+import { hasOneDAyPassed, normalizePodcastDetail } from "../../utils";
 
 const Podcast = () => {
   const { podcastId } = useParams();

@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import fetchData from "./services/PodcastService";
-import { hasOneDAyPassed, normalizeData } from "./utils";
-import Header from "./components/header";
-import InputSearch from "./components/inputSearch";
+import fetchData from "../../services/PodcastService";
+import { hasOneDAyPassed, normalizeData } from "../../utils";
+import InputSearch from "../../components/input-search";
 
 const Home = () => {
   const [podcasts, setPodcasts] = useState([]);
@@ -40,8 +39,6 @@ const Home = () => {
 
   return (
     <>
-      <Header />
-
       <div className="input__container">
         <span className="input__container--counter">
           {filteredPodcasts.length}

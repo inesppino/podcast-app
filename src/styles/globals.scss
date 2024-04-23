@@ -1,8 +1,9 @@
 @import "tokens.scss";
-@import "../Home.scss";
+@import "../pages/home/";
 @import "../components/header";
-@import "../components/inputSearch/";
-@import "../podcast.scss";
+@import "../components/layout";
+@import "../components/input-search/";
+@import "../pages/podcast-detail/";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -49,4 +50,5 @@ a:hover {
 h1 {
   font-size: 1.5rem;
   line-height: 1.1;
+  margin: 0;
 }
