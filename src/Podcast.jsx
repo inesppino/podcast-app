@@ -5,7 +5,7 @@ import { hasOneDAyPassed, normalizePodcastDetail } from "./utils";
 
 const Podcast = () => {
   const { podcastId } = useParams();
-  const [podcastInfo, setPodcastInfo] = useState({});
+  const [podcastInfo, setPodcastInfo] = useState(undefined);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -37,6 +37,8 @@ const Podcast = () => {
 
   if (error) return <h1>Something went wrong</h1>;
 
+  if (podcastInfo === undefined) return <h1>Loading...</h1>;
+
   return (
     <div className="detail__container">
       <div className="detail__summary">
@@ -46,36 +48,53 @@ const Podcast = () => {
         <div className="detail__summary--info">
           <p className="detail__summary--info-title">{podcastInfo.name}</p>
           <p className="detail__summary--info-author">
-            by: <span> {podcastInfo.author}</span>
+            by: {podcastInfo.author}
           </p>
         </div>
         <div className="detail__summary--description">
           <p className="detail__summary--description-title">Description:</p>
-          <p className="detail__summary--description-text">
-            {podcastInfo.description}
-          </p>
+          <p
+            className="detail__summary--description-text"
+            dangerouslySetInnerHTML={{
+              __html: podcastInfo?.description,
+            }}
+          ></p>
         </div>
       </div>
 
-      <div className="detail__episodes">
-        <p className="detail__episodes--number">
+      <div className="detail-episodes__container">
+        <p className="detail-episodes__number">
           Episodes: {podcastInfo.episodes?.length}
         </p>
 
-        <div className="detail__episodes--list">
-          <h3>Title</h3>
-          <h3>Date</h3>
-          <h3>Duration</h3>
-          {podcastInfo.episodes?.map((episode, index) => (
-            <li key={index}>
-              <Link to={`./episode/${episode.id}`}>
-                <span className="detail__episodes--title">{episode.title}</span>
-              </Link>
-              <p>{new Date(episode.date).toLocaleDateString("es")}</p>
-              <p>{episode.duration}</p>
-            </li>
-          ))}
-        </div>
+        <table className="detail-episodes__table">
+          <thead>
+            <tr>
+              <th className="detail-episodes__table-header">Title</th>
+              <th className="detail-episodes__table-header">Date</th>
+              <th className="detail-episodes__table-header">Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            {podcastInfo.episodes?.map((episode, index) => (
+              <tr key={index} className="detail-episodes__table-row">
+                <td className="detail-episodes__table-cell">
+                  <Link to={`./episode/${episode.id}`}>
+                    <span className="detail-episodes__table-title">
+                      {episode.title}
+                    </span>
+                  </Link>
+                </td>
+                <td className="detail-episodes__table-cell">
+                  {new Date(episode.date).toLocaleDateString("es")}
+                </td>
+                <td className="detail-episodes__table-cell detail-episodes__table-cell--duration">
+                  {episode.duration}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

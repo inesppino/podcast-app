@@ -2,8 +2,9 @@
 @import "../Home.scss";
 @import "../components/header";
 @import "../components/inputSearch/";
+@import "../podcast.scss";
 
-:root  {
+:root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.1;
   font-weight: 500;
@@ -23,11 +24,13 @@
   box-sizing: border-box;
 }
 
-body {
+body,
+p {
   margin: 0;
 }
 
-ul {
+ul,
+li {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -36,7 +39,7 @@ ul {
 a {
   font-weight: 500;
   color: $color-secondary;
-  text-decoration: inherit;
+  text-decoration: none;
 }
 
 a:hover {

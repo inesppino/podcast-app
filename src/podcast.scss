@@ -1,0 +1,67 @@
+.detail__container {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.25rem 1rem;
+}
+
+.detail__summary {
+  max-width: 21.25rem;
+  height: max-content;
+  padding: 1rem;
+  font-weight: bold;
+  box-shadow: $box-shadow;
+  &--image {
+    text-align: center;
+    margin-bottom: 1rem;
+    img {
+      width: 150px;
+      border-radius: 0.5rem;
+    }
+  }
+  &--info,
+  &--description {
+    border-top: 1px solid rgba($color-secondary-dark, 0.3);
+    padding: 1rem 0;
+  }
+  &--info-author,
+  &--description-text {
+    font-style: italic;
+    font-weight: 300;
+  }
+  &--description {
+    padding-bottom: 0;
+    &-text {
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+.detail-episodes {
+  &__number {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    box-shadow: $box-shadow;
+    padding: 8px;
+  }
+  &__table {
+    color: $color-primary-dark;
+    margin-top: 1rem;
+    padding: 0.25rem 0.75rem;
+    box-shadow: $box-shadow;
+    border-collapse: separate;
+    border-spacing: 0;
+    &-cell,
+    &-header {
+      padding: 8px 15px;
+      border-bottom: 1px solid rgba($color-secondary-dark, 0.3);
+      text-align: justify;
+    }
+    &-row:nth-child(odd) {
+      background-color: rgba($color-secondary-dark, 0.1);
+    }
+    &-cell--duration {
+      text-align: center;
+    }
+  }
+}
