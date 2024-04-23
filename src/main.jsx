@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Home from "./pages/home/Home.jsx";
-import "./styles/globals.scss";
-import Podcast from "./pages/podcast-detail/Podcast.jsx";
+import Home from "./pages/home/index.jsx";
+import Podcast from "./pages/podcast-detail/index.jsx";
 import Layout from "./components/layout/index.jsx";
+import "./styles/globals.scss";
 
 const router = createBrowserRouter([
   {
