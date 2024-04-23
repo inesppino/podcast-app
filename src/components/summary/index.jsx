@@ -7,6 +7,12 @@ const ConditionalLink = ({ link, id, children }) => {
   return to ? <Link to={to}>{children}</Link> : <>{children}</>;
 };
 
+ConditionalLink.propTypes = {
+  link: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};
+
 const Summary = ({ image, name, author, description, id, link }) => {
   return (
     <div className="summary">
