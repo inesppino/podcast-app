@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import fetchData from "./services/PodcastService";
 import { hasOneDAyPassed, normalizeData } from "./utils";
 import Header from "./components/header";
@@ -10,7 +11,7 @@ const Home = () => {
 
   useEffect(() => {
     if (
-      localStorage.getItem("podcasts_lastUpdated") &&
+      !localStorage.getItem("podcasts_lastUpdated") ||
       hasOneDAyPassed(localStorage.getItem("podcasts_lastUpdated"))
     ) {
       fetchData().then((data) => {
@@ -51,15 +52,19 @@ const Home = () => {
       <ul className="podcasts__container">
         {filteredPodcasts.map((podcast) => (
           <li key={podcast.id}>
-            <div className="podcast__card">
-              <img
-                className="podcast__card--image"
-                src={podcast.image}
-                alt={`${podcast.title} logo`}
-              />
-              <h4 className="podcast__card--title">{podcast.name}</h4>
-              <p className="podcast__card--author">Author: {podcast.artist} </p>
-            </div>
+            <Link to={`podcast/${podcast.id}`}>
+              <div className="podcast__card">
+                <img
+                  className="podcast__card--image"
+                  src={podcast.image}
+                  alt={`${podcast.title} logo`}
+                />
+                <h4 className="podcast__card--title">{podcast.name}</h4>
+                <p className="podcast__card--author">
+                  Author: {podcast.artist}{" "}
+                </p>
+              </div>
+            </Link>
           </li>
         ))}
       </ul>

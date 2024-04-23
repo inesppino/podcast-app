@@ -30,6 +30,11 @@
   margin: 2.5rem 0;
   min-height: 150px;
   cursor: pointer;
+  transition: $transition-hover;
+
+  &:hover {
+    transform: translateY(-0.25rem);
+  }
 
   &--image {
     border-radius: 5rem;
