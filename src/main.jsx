@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./store/store";
 import Home from "./pages/home/index.jsx";
 import Podcast from "./pages/podcast-detail/index.jsx";
 import Layout from "./components/layout/index.jsx";
@@ -24,8 +26,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Layout>
-      <RouterProvider router={router} />
-    </Layout>
+    <Provider store={store}>
+      <Layout>
+        <RouterProvider router={router} />
+      </Layout>
+    </Provider>
   </React.StrictMode>
 );
