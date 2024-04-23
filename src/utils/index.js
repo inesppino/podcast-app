@@ -16,6 +16,23 @@ export const hasOneDAyPassed = (date) => {
   return new Date() - lastUpdated > oneDay;
 };
 
+const formatDuration = (duration) => {
+  if (duration.includes(":")) {
+    const [minutes, seconds] = duration.split(":");
+    return `${minutes}:${seconds}`;
+  } else {
+    const seconds = Math.floor(duration / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds}`;
+  }
+};
+
+const formatString = (string) => {
+  if (string === undefined) return "";
+  return string.replace("<![CDATA[", "").replace("]]>", "");
+};
+
 export const normalizePodcastDetail = (data) => {
   return {
     author: data.artistName,
@@ -38,20 +55,25 @@ export const normalizeEpisodes = (episodes) => {
     episodes.getElementsByTagName("itunes:summary").length > 0
       ? episodes.getElementsByTagName("itunes:summary")
       : episodes.getElementsByTagName("description");
-  formattedEpisodes.description = description[0].innerHTML;
+  formattedEpisodes.description = formatString(description[0].innerHTML);
 
   items.forEach((element) => {
+    const rawTitle =
+      element.getElementsByTagName("itunes:title")[0]?.innerHTML ||
+      element.getElementsByTagName("title")[0].innerHTML;
     const id =
       element.getElementsByTagName("omny:clipId")[0]?.innerHTML ||
       element.getElementsByTagName("guid")[0].innerHTML;
     const episode = {
-      id: id.replace("<![CDATA[", "").replace("]]>", ""),
-      title:
-        element.getElementsByTagName("itunes:title")[0]?.innerHTML ||
-        element.getElementsByTagName("title")[0].innerHTML,
+      id: formatString(id),
+      title: formatString(rawTitle),
       date: element.getElementsByTagName("pubDate")[0].innerHTML,
-      duration: element.getElementsByTagName("itunes:duration")[0].innerHTML,
-      description: element.getElementsByTagName("description")[0].innerHTML,
+      duration: formatDuration(
+        element.getElementsByTagName("itunes:duration")[0].innerHTML
+      ),
+      description: formatString(
+        element.getElementsByTagName("description")[0].innerHTML
+      ),
       audio: element.getElementsByTagName("enclosure")[0].getAttribute("url"),
     };
 
