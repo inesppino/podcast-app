@@ -17,7 +17,13 @@ export const getPodcastById = async (podcastId) => {
   const allowOriginsUrl = `${ORIGINS_URL}${url}`;
 
   const res = await fetch(allowOriginsUrl)
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Network response was not ok");
+      }
+    })
     .then(async (data) => {
       const parsedContent = JSON.parse(data.contents);
       const podcastFeed = await getPodcastFeed(
