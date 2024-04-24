@@ -51,11 +51,12 @@ const Episode = () => {
         data.selectedEpisode ?? getEpisodeById(data.episodes, episodeId);
       setPodcastInfo(data);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [podcastId, episodeId]);
 
   if (error) return <h1>Something went wrong</h1>;
 
-  if (podcastInfo === undefined) return <h1>Loading...</h1>;
+  if (podcastInfo === undefined) return <></>;
 
   return (
     <div className="detail__container">

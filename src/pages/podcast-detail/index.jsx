@@ -43,7 +43,7 @@ const Podcast = () => {
   }, [podcastId]);
 
   if (error) return <h1>Something went wrong</h1>;
-  console.log(podcastInfo);
+
   if (podcastInfo === undefined) return <div></div>;
 
   return (
