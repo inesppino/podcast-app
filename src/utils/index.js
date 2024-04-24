@@ -17,6 +17,7 @@ export const hasOneDAyPassed = (date) => {
 };
 
 const formatDuration = (duration) => {
+  if (duration === undefined) return "";
   if (duration.includes(":")) {
     const [minutes, seconds] = duration.split(":");
     return `${minutes}:${seconds}`;
@@ -50,6 +51,7 @@ export const getEpisodeById = (episodes, episodeId) => {
 };
 
 export const normalizeEpisodes = (episodes) => {
+  console.log(episodes);
   const formattedEpisodes = {
     description: "",
     list: [],
@@ -59,26 +61,29 @@ export const normalizeEpisodes = (episodes) => {
     episodes.getElementsByTagName("itunes:summary").length > 0
       ? episodes.getElementsByTagName("itunes:summary")
       : episodes.getElementsByTagName("description");
-  formattedEpisodes.description = formatString(description[0].innerHTML);
+
+  formattedEpisodes.description = description[0]
+    ? formatString(description[0].innerHTML)
+    : "";
 
   items.forEach((element) => {
     const rawTitle =
       element.getElementsByTagName("itunes:title")[0]?.innerHTML ||
-      element.getElementsByTagName("title")[0].innerHTML;
+      element.getElementsByTagName("title")[0]?.innerHTML;
     const id =
       element.getElementsByTagName("omny:clipId")[0]?.innerHTML ||
-      element.getElementsByTagName("guid")[0].innerHTML;
+      element.getElementsByTagName("guid")[0]?.innerHTML;
     const episode = {
       id: formatString(id),
       title: formatString(rawTitle),
-      date: element.getElementsByTagName("pubDate")[0].innerHTML,
+      date: element.getElementsByTagName("pubDate")[0]?.innerHTML,
       duration: formatDuration(
-        element.getElementsByTagName("itunes:duration")[0].innerHTML
+        element.getElementsByTagName("itunes:duration")[0]?.innerHTML
       ),
       description: formatString(
-        element.getElementsByTagName("description")[0].innerHTML
+        element.getElementsByTagName("description")[0]?.innerHTML
       ),
-      audio: element.getElementsByTagName("enclosure")[0].getAttribute("url"),
+      audio: element.getElementsByTagName("enclosure")[0]?.getAttribute("url"),
     };
 
     formattedEpisodes.list.push(episode);
